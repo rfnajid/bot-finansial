@@ -1,0 +1,81 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+# useDotenv: true
+configValidationMode: off
+
+service: bot-finansial
+
+# Remember to install project dependencies to register the provider plugin.
+# $ npm install
+provider:
+  name: openwhisk
+
+functions:
+  hello:
+    handler: handler.hello
+    name: 'bot-finansial/hello'
+    memory: 128
+  postTweet:
+    handler: handler.postTweet
+    name: 'bot-finansial/postTweet'
+    memory: 128
+  scrapEmas:
+    handler: handler.scrapEmas
+    name: 'bot-finansial/scrapEmas'
+    memory: 128
+  adapterEmas:
+    handler: handler.adapterEmas
+    name: 'bot-finansial/adapterEmas'
+    memory: 128
+  scrapCrypto:
+    handler: handler.scrapCrypto
+    name: 'bot-finansial/scrapCrypto'
+    memory: 128
+  adapterBitcoin:
+    handler: handler.adapterBitcoin
+    name: 'bot-finansial/adapterBitcoin'
+    memory: 128
+  sequenceEmas:
+    name: 'bot-finansial/sequenceEmas'
+    sequence:
+      - 'scrapEmas'
+      - 'adapterEmas'
+      - 'postTweet'
+  sequnceEmasDev:
+    name: 'bot-finansial/sequenceEmasDev'
+    sequence:
+      - 'scrapEmas'
+      - 'adapterEmas'
+  sequenceBitcoin:
+    name: 'bot-finansial/sequenceBitcoin'
+    sequence:
+      - 'scrapCrypto'
+      - 'adapterBitcoin'
+      - 'postTweet'
+  sequenceBitcoinDev:
+    name: 'bot-finansial/sequenceBitcoinDev'
+    sequence:
+      - 'scrapCrypto'
+      - 'adapterBitcoin'
+
+# extend the framework using plugins listed here:
+# https://github.com/serverless/plugins
+plugins:
+  - serverless-openwhisk
+
+resources:
+  apigw:
+    name: 'bot-finansial'
+    basepath: /serverless
+    cors: true

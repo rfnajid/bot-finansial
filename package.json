@@ -1,0 +1,27 @@
+{
+  "name": "bot-finansial",
+  "version": "1.0.0",
+  "description": "Twitter Bot yang otomatis update info finansial",
+  "main": "handler.js",
+  "keywords": [
+    "serverless",
+    "openwhisk",
+    "twitter",
+    "bot"
+  ],
+  "scripts": {
+    "deploy": "serverless deploy && npm run deploy-trigger",
+    "deploy-trigger": "sh trigger.sh --deploy",
+    "delete-trigger": "sh trigger.sh --delete",
+    "get-auth": "ibmcloud wsk property get --auth",
+    "live-log": "ibmcloud fn activation poll"
+  },
+  "devDependencies": {
+    "serverless-openwhisk": ">=0.13.0"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "request-promise": "^4.2.6",
+    "twit": "^2.2.11"
+  }
+}
