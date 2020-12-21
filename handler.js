@@ -84,11 +84,11 @@ function adapterEmas(params){
   const wajibZakat = emas.current * 85;
   let tweet = "🥇 Harga Emas Hari Ini 🥇";
   tweet += "\n\n";
-  tweet += toNominal(emas.current)+"";
+  tweet += toNominal(emas.current)+" /gram";
   if(emas.change!=0){
     tweet += "\n\n";
     tweet += emas.change > 0 ? "Naik 🔺" : "Turun 🔻";
-    tweet += " " + emas.change;
+    tweet += " " + toNominal(emas.change);
   }
 
   tweet += "\n\n";
