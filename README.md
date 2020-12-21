@@ -1,2 +1,4 @@
 # bot-finansial
-@BotFinansial
+Bot monitoring harian pergerakan Saham, Emas, dan Bitcoin
+
+Twitter : @BotFinansial
