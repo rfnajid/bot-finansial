@@ -38,14 +38,6 @@ functions:
     handler: handler.adapterEmas
     name: 'bot-finansial/adapterEmas'
     memory: 128
-  scrapCrypto:
-    handler: handler.scrapCrypto
-    name: 'bot-finansial/scrapCrypto'
-    memory: 128
-  adapterBitcoin:
-    handler: handler.adapterBitcoin
-    name: 'bot-finansial/adapterBitcoin'
-    memory: 128
   sequenceEmas:
     name: 'bot-finansial/sequenceEmas'
     sequence:
@@ -57,6 +49,14 @@ functions:
     sequence:
       - 'scrapEmas'
       - 'adapterEmas'
+  scrapCrypto:
+    handler: handler.scrapCrypto
+    name: 'bot-finansial/scrapCrypto'
+    memory: 128
+  adapterBitcoin:
+    handler: handler.adapterBitcoin
+    name: 'bot-finansial/adapterBitcoin'
+    memory: 128
   sequenceBitcoin:
     name: 'bot-finansial/sequenceBitcoin'
     sequence:
@@ -68,6 +68,25 @@ functions:
     sequence:
       - 'scrapCrypto'
       - 'adapterBitcoin'
+  scrapIdx:
+    handler: handler.scrapIdx
+    name: 'bot-finansial/scrapIdx'
+    memory: 128
+  adapterIdx:
+    handler: handler.adapterIdx
+    name: 'bot-finansial/adapterIdx'
+    memory: 128
+  sequenceIdx:
+    name: 'bot-finansial/sequenceIdx'
+    sequence:
+      - 'scrapIdx'
+      - 'adapterIdx'
+      - 'postTweet'
+  sequenceIdxDev:
+    name: 'bot-finansial/sequenceIdxDev'
+    sequence:
+      - 'scrapIdx'
+      - 'adapterIdx'
 
 # extend the framework using plugins listed here:
 # https://github.com/serverless/plugins

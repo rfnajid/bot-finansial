@@ -9,5 +9,6 @@ module.exports = {
         access_token_secret: 'TWITTER_ACCESS_TOKEN_SECRET'
     },
     emasUrl: 'https://www.logammulia.com/id',
-    cryptoUrl: 'https://indodax.com/api/summaries'
+    cryptoUrl: 'https://indodax.com/api/summaries',
+    idxUrl: 'https://www.idx.co.id/umbraco/Surface/Home/GetIndexList?cultureInfo=id-id'
 }

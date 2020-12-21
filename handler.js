@@ -178,16 +178,96 @@ function adapterBitcoin(params){
 
   let emoji = '';
   if(percentage24h >= 20 || percentage7d >= 20){
-    const emoticons = ["🤑","💸'","💰","😀","🔺","📈 ","🚀"];
-    const random = Math.floor(Math.random()*emoticons.length-1);
-    emoji = emoticons[random];
-  }else if(percentage24h <= -20 || percentage7d <= -20){
-    const emoticons = ["😥","😭","🔻","😵","💀","📉","🔥"];
-    const random = Math.floor(Math.random()*emoticons.length-1);
-    emoji = emoticons[random];
+    emoji = generateEmoji(true);
+  } else if(percentage24h <= -20 || percentage7d <= -20){
+    emoji = generateEmoji(false);
   }
-  for (let i = 0; i < 10 && emoji; i++) {
-    tweet += emoji
+
+  tweet+=emoji;
+
+  return {
+    tweet: tweet
+  }
+}
+
+async function scrapIdx(params){
+  const rp = require('request-promise');
+  const url = config.idxUrl;
+
+  console.log('url scrapIdx: ', url);
+
+  const res = await new Promise((resolve, reject) => {
+    rp(url).then((json)=> {
+
+        // it literally needs double parsing
+        json = JSON.parse(json);
+        json = JSON.parse(json);
+
+        const idx = json[0];
+        const lq45 = json[1];
+        const idx30 = json[2];
+        const bumn = json[9];
+        const jii = json[12];
+
+        idx.IndexCode = 'IDX';
+        bumn.IndexCode = 'BUMN20';
+        jii.IndexCode = 'JII (Syariah)';
+
+        const data = [idx, lq45,idx30, bumn, jii];;
+
+        resolve({
+          success: true,
+          data: data
+        });
+
+      }).catch((err)=>{
+        console.log('error scrap idx : ', err);
+        reject({
+          success: false,
+          error: err
+        })
+      });
+  });
+  return res;
+}
+
+function adapterIdx(params){
+
+  if(!params.success){
+    return {
+      success : false,
+      error : 'scrapIdx Error'
+    }
+  }
+
+  let tweet = 'IHSG Hari Ini...';
+  tweet += '\n\n';
+
+  // flag if all index' are all green or all red
+  let allGreen = true;
+  let allRed = true;
+
+  params.data.forEach(element => {
+    tweet+=element.IndexCode + " : " + element.Closing + ' ';
+    element.Percent = element.Percent.slice(0,-1);
+    element.Percent = element.Percent.replace(',','.');
+    element.Percent = new Number(element.Percent);
+    if(element.Percent > 0){
+      tweet += "Naik 🔺";
+      allRed = false;
+    }else{
+      tweet += "Turun 🔻";
+      allGreen = false;
+    }
+    tweet += ' ' + element.Percent + '%\n';
+  });
+
+  if(allGreen){
+    tweet += '\n';
+    tweet += generateEmoji(true);
+  }else if(allRed){
+    tweet += '\n';
+    tweet += generateEmoji(false);
   }
 
   return {
@@ -204,9 +284,33 @@ function roundDecimal(number){
   return Math.round(number*100)/100;
 }
 
+function generateEmoji(profit){
+  const emoticonProfit = ["🤑","💸'","💰","😀","🔺","📈 ","🚀"];
+  const emoticonLoss = ["😥","😭","🔻","😵","💀","📉","🔥"];
+
+  let random;
+  let emoji;
+  if(profit){
+    random = Math.floor(Math.random()*emoticonProfit.length-1);
+    emoji = emoticonProfit[random];
+  }else{
+    random = Math.floor(Math.random()*emoticonLoss.length-1);
+    emoji = emoticonLoss[random];
+  }
+
+  let result = '';
+  for (let i = 0; i < 10; i++) {
+    result += emoji
+  }
+
+  return result
+}
+
 exports.hello = hello;
 exports.postTweet = postTweet;
 exports.scrapEmas = scrapEmas;
 exports.adapterEmas = adapterEmas;
 exports.scrapCrypto = scrapCrypto;
 exports.adapterBitcoin = adapterBitcoin;
+exports.scrapIdx = scrapIdx;
+exports.adapterIdx = adapterIdx;
