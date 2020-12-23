@@ -84,7 +84,8 @@ function adapterEmas(params){
   const wajibZakat = emas.current * 85;
   let tweet = "🥇 Harga Emas Hari Ini 🥇";
   tweet += "\n\n";
-  tweet += toNominal(emas.current)+" /gram";
+  tweet += toNominal(emas.current)+" /gr";
+  emas.change = emas.current - emas.lastPrice;
   if(emas.change!=0){
     tweet += "\n\n";
     tweet += emas.change > 0 ? "Naik 🔺" : "Turun 🔻";
@@ -248,7 +249,7 @@ function adapterIdx(params){
   let allRed = true;
 
   params.data.forEach(element => {
-    tweet+=element.IndexCode + " : " + element.Closing + ' ';
+    tweet+=element.IndexCode + " : " + element.Current + ' ';
     element.Percent = element.Percent.slice(0,-1);
     element.Percent = element.Percent.replace(',','.');
     element.Percent = new Number(element.Percent);
