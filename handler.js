@@ -214,12 +214,18 @@ async function scrapIdx(params){
         bumn.IndexCode = 'BUMN20';
         jii.IndexCode = 'JII (Syariah)';
 
-        const data = [idx, lq45,idx30, bumn, jii];;
+        const data = [idx, lq45,idx30, bumn, jii];
 
-        resolve({
-          success: true,
-          data: data
-        });
+        if(idx.Current > 0){
+          resolve({
+            success: true,
+            data: data
+          });
+        }else {
+          resolve({
+            success: false
+          });
+        }
 
       }).catch((err)=>{
         console.log('error scrap idx : ', err);
@@ -292,10 +298,10 @@ function generateEmoji(profit){
   let random;
   let emoji;
   if(profit){
-    random = Math.floor(Math.random()*emoticonProfit.length-1);
+    random = Math.floor(Math.random()*emoticonProfit.length);
     emoji = emoticonProfit[random];
   }else{
-    random = Math.floor(Math.random()*emoticonLoss.length-1);
+    random = Math.floor(Math.random()*emoticonLoss.length);
     emoji = emoticonLoss[random];
   }
 
