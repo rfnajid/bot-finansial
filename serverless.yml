@@ -22,20 +22,16 @@ provider:
   name: openwhisk
 
 functions:
-  hello:
-    handler: handler.hello
-    name: 'bot-finansial/hello'
-    memory: 128
   postTweet:
-    handler: handler.postTweet
+    handler: src/handler/tweet.postTweet
     name: 'bot-finansial/postTweet'
     memory: 128
   scrapEmas:
-    handler: handler.scrapEmas
+    handler: src/handler/emas.scrapEmas
     name: 'bot-finansial/scrapEmas'
     memory: 128
   adapterEmas:
-    handler: handler.adapterEmas
+    handler: src/handler/emas.adapterEmas
     name: 'bot-finansial/adapterEmas'
     memory: 128
   sequenceEmas:
@@ -50,11 +46,11 @@ functions:
       - 'scrapEmas'
       - 'adapterEmas'
   scrapCrypto:
-    handler: handler.scrapCrypto
+    handler: src/handler/crypto.scrapCrypto
     name: 'bot-finansial/scrapCrypto'
     memory: 128
   adapterBitcoin:
-    handler: handler.adapterBitcoin
+    handler: src/handler/crypto.adapterBitcoin
     name: 'bot-finansial/adapterBitcoin'
     memory: 128
   sequenceBitcoin:
@@ -69,11 +65,11 @@ functions:
       - 'scrapCrypto'
       - 'adapterBitcoin'
   scrapIdx:
-    handler: handler.scrapIdx
+    handler: src/handler/idx.scrapIdx
     name: 'bot-finansial/scrapIdx'
     memory: 128
   adapterIdx:
-    handler: handler.adapterIdx
+    handler: src/handler/idx.adapterIdx
     name: 'bot-finansial/adapterIdx'
     memory: 128
   sequenceIdx:
