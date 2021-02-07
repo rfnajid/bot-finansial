@@ -47,19 +47,22 @@ function adapterEmas(params){
 
   const emas = parseNominalEmas(params)
   const wajibZakat = emas.current * 85;
-  let tweet = "🥇 Harga Emas Hari Ini 🥇";
-  tweet += "\n\n";
-  tweet += toNominal(emas.current)+" /gr";
+  let tweet = '🥇 Harga Emas Hari Ini 🥇';
+  tweet += '\n\n';
+  tweet += toNominal(emas.current)+' /gr';
   emas.change = emas.current - emas.lastPrice;
   if(emas.change!=0){
-    tweet += "\n\n";
-    tweet += emas.change > 0 ? "Naik 🔺" : "Turun 🔻";
-    tweet += " " + toNominal(emas.change);
+    tweet += '\n\n';
+    tweet += emas.change > 0 ? 'Naik 🔺' : 'Turun 🔻';
+    tweet += ' ' + toNominal(emas.change);
   }
 
-  tweet += "\n\n";
-  tweet += "Wajib zakat (85gr) : " + toNominal(wajibZakat);
-  tweet += "\n\n";
+  tweet += '\n\n';
+  tweet += 'Wajib zakat (85gr) : ' + toNominal(wajibZakat);
+
+  // hashtag
+  tweet += '\n\n';
+  tweet += '#emas #antam #dinar'
 
   return {
     tweet: tweet

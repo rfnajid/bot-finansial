@@ -6,7 +6,7 @@ const config = require('../../config.js');
 async function postTweet(params){
     const res = {
         success : false,
-        message : "Invalid Parameters"
+        message : 'Invalid Parameters'
     }
     if (!params.tweet){
         return res;

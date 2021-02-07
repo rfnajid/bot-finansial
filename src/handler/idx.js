@@ -72,11 +72,11 @@ function adapterIdx(params){
         element.Percent = element.Percent.replace(',','.');
         element.Percent = new Number(element.Percent);
         if(element.Percent > 0){
-        tweet += "Naik 🔺";
-        allRed = false;
+            tweet += "Naik 🔺";
+            allRed = false;
         }else{
-        tweet += "Turun 🔻";
-        allGreen = false;
+            tweet += "Turun 🔻";
+            allGreen = false;
         }
         tweet += ' ' + element.Percent + '%\n';
     });
@@ -88,6 +88,10 @@ function adapterIdx(params){
         tweet += '\n';
         tweet += generateEmoji(false);
     }
+
+    // hashtag
+    tweet += '\n\n';
+    tweet += '#investasi #saham #ihsg #idx';
 
     return {
         tweet: tweet

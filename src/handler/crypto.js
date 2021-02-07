@@ -68,6 +68,10 @@ function adapterBitcoin(params){
 
     tweet+=emoji;
 
+    // hashtag
+    tweet += '\n\n';
+    tweet += '#btc';
+
     return {
         tweet: tweet
     }
