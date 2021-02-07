@@ -27,22 +27,23 @@ async function scrapIdx(params){
 
             const data = [idx, lq45,idx30, bumn, jii];
 
-            if(idx.Current != 0){
-            resolve({
-                success: true,
-                data: data
-            });
-            }else {
-            resolve({
-                success: false
-            });
-            }
+            const nol = '0,000';
 
+            if(idx.Change != nol && lq45.Change != nol && idx30.Change != nol && bumn.Change != nol && jii.Change != nol){
+                resolve({
+                    success: true,
+                    data: data
+                });
+            }else {
+                resolve({
+                    success: false
+                });
+            }
         }).catch((err)=>{
             console.log('error scrap idx : ', err);
             reject({
-            success: false,
-            error: err
+                success: false,
+                error: err
             })
         });
     });
