@@ -2,6 +2,7 @@
 const config = require('../../config.js');
 const toNominal = require('../util/converter.js').toNominal;
 const roundDecimal = require('../util/converter.js').roundDecimal;
+const generateEmoji = require('../util/reaction.js').generateEmoji;
 
 async function scrapCrypto(params){
     const rp = require('request-promise');

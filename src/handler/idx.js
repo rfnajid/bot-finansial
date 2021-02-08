@@ -1,6 +1,7 @@
 'use strict';
 
 const config = require('../../config.js');
+const generateEmoji = require('../util/reaction.js').generateEmoji;
 
 async function scrapIdx(params){
     const rp = require('request-promise');
