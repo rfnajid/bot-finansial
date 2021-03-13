@@ -22,6 +22,12 @@ function deploy(){
 
     # ibmcloud fn trigger create trigger-idx-dev --feed /whisk.system/alarms/alarm --param cron '*/15 * * * *'
     # ibmcloud fn rule create rule-trigger-idx-dev trigger-idx-dev bot-finansial/sequenceIdxDev
+
+    ibmcloud fn trigger create trigger-forex --feed /whisk.system/alarms/alarm --param cron '0 1 * * *'
+    ibmcloud fn rule create rule-trigger-forex trigger-forex bot-finansial/sequenceForex
+
+    # ibmcloud fn trigger create trigger-forex-dev --feed /whisk.system/alarms/alarm --param cron '*/17 * * * *'
+    # ibmcloud fn rule create rule-trigger-forex-dev trigger-forex-dev bot-finansial/sequenceForexDev
 }
 
 function delete() {

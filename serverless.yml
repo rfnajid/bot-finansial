@@ -22,10 +22,12 @@ provider:
   name: openwhisk
 
 functions:
+#twitter
   postTweet:
     handler: src/handler/tweet.postTweet
     name: 'bot-finansial/postTweet'
     memory: 128
+#emas
   scrapEmas:
     handler: src/handler/emas.scrapEmas
     name: 'bot-finansial/scrapEmas'
@@ -45,6 +47,7 @@ functions:
     sequence:
       - 'scrapEmas'
       - 'adapterEmas'
+#crypto
   scrapCrypto:
     handler: src/handler/crypto.scrapCrypto
     name: 'bot-finansial/scrapCrypto'
@@ -64,6 +67,7 @@ functions:
     sequence:
       - 'scrapCrypto'
       - 'adapterBitcoin'
+#idx
   scrapIdx:
     handler: src/handler/idx.scrapIdx
     name: 'bot-finansial/scrapIdx'
@@ -83,7 +87,26 @@ functions:
     sequence:
       - 'scrapIdx'
       - 'adapterIdx'
-
+#forex
+  scrapForex:
+    handler: src/handler/forex.scrapForex
+    name: 'bot-finansial/scrapForex'
+    memory: 128
+  adapterForex:
+    handler: src/handler/forex.adapterForex
+    name: 'bot-finansial/adapterForex'
+    memory: 128
+  sequenceForex:
+    name: 'bot-finansial/sequenceForex'
+    sequence:
+      - 'scrapForex'
+      - 'adapterForex'
+      - 'postTweet'
+  sequnceForexDev:
+    name: 'bot-finansial/sequenceForexDev'
+    sequence:
+      - 'scrapForex'
+      - 'adapterForex'
 # extend the framework using plugins listed here:
 # https://github.com/serverless/plugins
 plugins:
