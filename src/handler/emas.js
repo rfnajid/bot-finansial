@@ -1,7 +1,6 @@
 
 const config = require('../../config.js');
 const toNominal = require('../util/converter.js').toNominal;
-const generateEmoji = require('../util/reaction.js').generateEmoji;
 
 
 async function scrapEmas(params){

@@ -23,7 +23,7 @@ function deploy(){
     # ibmcloud fn trigger create trigger-idx-dev --feed /whisk.system/alarms/alarm --param cron '*/15 * * * *'
     # ibmcloud fn rule create rule-trigger-idx-dev trigger-idx-dev bot-finansial/sequenceIdxDev
 
-    ibmcloud fn trigger create trigger-forex --feed /whisk.system/alarms/alarm --param cron '0 1 * * *'
+    ibmcloud fn trigger create trigger-forex --feed /whisk.system/alarms/alarm --param cron '0 2 * * *'
     ibmcloud fn rule create rule-trigger-forex trigger-forex bot-finansial/sequenceForex
 
     # ibmcloud fn trigger create trigger-forex-dev --feed /whisk.system/alarms/alarm --param cron '*/17 * * * *'
@@ -51,6 +51,13 @@ function delete() {
 
   ibmcloud fn rule delete rule-trigger-idx-dev
   ibmcloud fn trigger delete trigger-idx-dev
+
+  # trigger forex
+  ibmcloud fn rule delete rule-trigger-forex
+  ibmcloud fn trigger delete trigger-forex
+
+  ibmcloud fn rule delete rule-trigger-forex-dev
+  ibmcloud fn trigger delete trigger-forex-dev
 }
 
 case "$1" in

@@ -1,7 +1,8 @@
 
 const config = require('../../config.js');
 const toNominal = require('../util/converter.js').toNominal;
-const parseIntFormatCurrencyId = require('../util/converter').parseIntFormatCurrencyId;
+const parseFloatFormatCurrencyId = require('../util/converter').parseFloatFormatCurrencyId;
+const roundDecimal = require('../util/converter').roundDecimal;
 
 async function scrapForex(params){
   const rp = require('request-promise');
@@ -60,7 +61,7 @@ function adapterForex(params){
     return selectedCurrency.includes(item.currency);
   });
 
-  let tweet = '💲 Harga Forex Hari Ini 💲';
+  let tweet = '💵 Harga Forex Hari Ini 💵';
   tweet += '\n\n';
 
 
@@ -81,9 +82,9 @@ function adapterForex(params){
 
 function parseNominalForex(data){
 
-  const value = parseIntFormatCurrencyId(data.value);
-  const buy = parseIntFormatCurrencyId(data.buy);
-  const price = Math.round(buy/value);
+  const value = parseFloatFormatCurrencyId(data.value);
+  const buy = parseFloatFormatCurrencyId(data.buy);
+  const price = roundDecimal(buy/value);
 
   return {
     currency: data.currency,
